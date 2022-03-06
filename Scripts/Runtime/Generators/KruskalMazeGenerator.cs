@@ -15,6 +15,8 @@ namespace Chinchillada.GridGraph
         public IEnumerable<GridGraph> GenerateIterative(int width, int height, IRNG random)
         {
             var grid = new GridGraph(width, height);
+
+            yield return grid;
             
             var connections = GetAllConnections(grid).ToList();
             this.InitializeNodeSets(grid);

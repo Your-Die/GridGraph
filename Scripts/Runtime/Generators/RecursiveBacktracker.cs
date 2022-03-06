@@ -24,6 +24,8 @@ namespace Chinchillada.GridGraph
             this.visited = new bool[width, height];
             this.stack   = new LinkedList<GridGraph.Node>();
 
+            yield return this.Grid;
+            
             var startNode = random.ChooseNode(this.Grid);
             this.VisitNode(startNode);
 

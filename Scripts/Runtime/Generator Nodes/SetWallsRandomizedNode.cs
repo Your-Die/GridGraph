@@ -26,6 +26,8 @@ namespace Chinchillada.PCGraph
             this.walls       = this.GetValidConnections(this.Grid).ToList();
             this.removeCount = Mathf.FloorToInt(this.walls.Count * this.percentage);
 
+            yield return grid;
+
             for (var i = 0; i < this.removeCount; i++)
             {
                 var connection = this.RNG.ChooseAndExtract(this.walls);

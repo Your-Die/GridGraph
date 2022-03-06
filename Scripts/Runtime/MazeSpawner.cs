@@ -6,41 +6,46 @@ namespace Chinchillada.PCGraph
     using Sirenix.Serialization;
     using UnityEngine;
 
-    public class MazeSpawner : SerializedMonoBehaviour
+    public class MazeSpawner : SerializedMonoBehaviour, IGrid
     {
         [SerializeField] private float cellSize = 5;
 
         [SerializeField, Required] private GameObject wallPrefab;
-
+        [SerializeField, Required] private GameObject boundaryPrefab;
 
         [SerializeField, Required] private Transform topLeft;
 
         [OdinSerialize, Required] private IGenerator<GridGraph> mazeGenerator;
 
-        private readonly List<GameObject> walls = new List<GameObject>();
+        [SerializeField, HideInInspector] private List<GameObject> walls = new List<GameObject>();
 
+        private GridGraph maze;
+        
         private static Quaternion Horizontal => Quaternion.identity;
         private static Quaternion Vertical   => Quaternion.Euler(0, 90, 0);
+
+        public int Width => maze?.Width ?? 0;
+        public int Height => maze?.Height ?? 0;
 
         [Button]
         public void SpawnMaze()
         {
             this.Clear();
 
-            var maze = this.mazeGenerator.Generate();
+            this.maze = this.mazeGenerator.Generate();
 
-            this.SpawnHorizontalBoundary(maze);
-            this.SpawnVerticalBoundary(maze);
+            this.SpawnHorizontalBoundary();
+            this.SpawnVerticalBoundary();
 
-            for (var x = 0; x < maze.Width; x++)
-            for (var y = 0; y < maze.Height; y++)
+            for (var x = 0; x < this.maze.Width; x++)
+            for (var y = 0; y < this.maze.Height; y++)
             {
-                var node = maze[x, y];
+                var node = this.maze[x, y];
 
-                if (!node.IsConnectedEast)
+                if (x < this.maze.Width - 1 && !node.IsConnectedEast)
                     this.SpawnEastWall(x, y);
 
-                if (!node.IsConnectedSouth)
+                if (y < this.maze.Height - 1 && !node.IsConnectedSouth)
                     this.SpawnSouthWall(x, y);
             }
         }
@@ -48,37 +53,51 @@ namespace Chinchillada.PCGraph
         [Button]
         public void Clear()
         {
+            this.maze = null;
+            
             foreach (var wall in this.walls)
-                Destroy(wall);
+                DestroyImmediate(wall);
 
             this.walls.Clear();
         }
 
-        private void SpawnHorizontalBoundary(GridGraph maze)
+        public Vector3 GetCellCenter(int x, int z)
+        {
+            var offset = new Vector3
+            {
+                x = (x + 0.5f) * this.cellSize,
+                y = 0,
+                z = (z + 0.5f) * this.cellSize
+            };
+
+            return this.topLeft.position + offset;
+        }
+
+        private void SpawnHorizontalBoundary()
         {
             var top    = 0;
-            var bottom = this.cellSize * maze.Height;
+            var bottom = this.cellSize * this.maze.Height;
 
-            for (var x = 0; x < maze.Width; x++)
+            for (var x = 0; x < this.maze.Width; x++)
             {
                 var left = (x + 0.5f) * this.cellSize;
 
-                this.SpawnWall(left, top, Horizontal);
-                this.SpawnWall(left, bottom, Horizontal);
+                this.SpawnBoundary(left, top, Horizontal);
+                this.SpawnBoundary(left, bottom, Horizontal);
             }
         }
 
-        private void SpawnVerticalBoundary(GridGraph maze)
+        private void SpawnVerticalBoundary()
         {
             var left  = 0;
-            var right = this.cellSize * maze.Width;
+            var right = this.cellSize * this.maze.Width;
 
-            for (var y = 0; y < maze.Height; y++)
+            for (var y = 0; y < this.maze.Height; y++)
             {
                 var offset = (y + 0.5f) * this.cellSize;
 
-                this.SpawnWall(left, offset, Vertical);
-                this.SpawnWall(right, offset, Vertical);
+                this.SpawnBoundary(left, offset, Vertical);
+                this.SpawnBoundary(right, offset, Vertical);
             }
         }
 
@@ -98,14 +117,24 @@ namespace Chinchillada.PCGraph
             this.SpawnWall(xOffset, yOffset, Vertical);
         }
 
+        private void SpawnBoundary(float localX, float localZ, Quaternion rotation)
+        {
+            this.SpawnPrefab(this.boundaryPrefab, localX, localZ, rotation);
+        }
+
         private void SpawnWall(float localX, float localZ, Quaternion rotation)
+        {
+            this.SpawnPrefab(this.wallPrefab, localX, localZ, rotation);
+        }
+
+        private void SpawnPrefab(GameObject prefab, float localX, float localZ, Quaternion rotation)
         {
             var position = this.topLeft.position;
 
             position.x += localX;
             position.z += localZ;
 
-            var wall = Instantiate(this.wallPrefab, position, rotation, this.topLeft);
+            var wall = Instantiate(prefab, position, rotation, this.topLeft);
             this.walls.Add(wall);
         }
     }
