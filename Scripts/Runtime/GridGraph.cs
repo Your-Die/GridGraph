@@ -9,7 +9,10 @@ namespace Chinchillada.GridGraph
     {
         [OdinSerialize] private Node[,] nodes;
 
+        public Node this[Vector2Int cell] => this.nodes[cell.x, cell.y];
+
         public Node this[int x, int y] => this.nodes[x, y];
+
 
         public int Width  => this.nodes.GetLength(0);
         public int Height => this.nodes.GetLength(1);
@@ -49,34 +52,6 @@ namespace Chinchillada.GridGraph
                 this.nodes[x, y] = node;
             }
         }
-
-        public bool WithinBounds(Vector2Int coordinate)
-        {
-            var withinBounds = 0 <= coordinate.x && coordinate.x < this.Width &&
-                               0 <= coordinate.y && coordinate.y < this.Height;
-
-            return withinBounds;
-        }
-
-        public Node GetNeighbor(Node node, Direction direction)
-        {
-            return direction switch
-            {
-                Direction.North => this.GetNorthNeighbor(node),
-                Direction.East  => this.GetEastNeighbor(node),
-                Direction.South => this.GetSouthNeighbor(node),
-                Direction.West  => this.GetWestNeighbor(node),
-                _               => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
-            };
-        }
-
-        public Node GetNorthNeighbor(Node node) => node.Y > 0 ? this[node.X, node.Y - 1] : null;
-
-        public Node GetEastNeighbor(Node node) => node.X < this.Width - 1 ? this[node.X + 1, node.Y] : null;
-
-        public Node GetSouthNeighbor(Node node) => node.Y < this.Height - 1 ? this[node.X, node.Y + 1] : null;
-
-        public Node GetWestNeighbor(Node node) => node.X > 0 ? this[node.X - 1, node.Y] : null;
 
         public struct Connection
         {

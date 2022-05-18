@@ -1,9 +1,10 @@
 namespace Chinchillada.GridGraph
 {
     using System;
+    using System.Collections.Generic;
     using UnityEngine;
 
-    public partial class GridGraph
+    public partial class GridGraph : IGridGraph
     {
         public class Node
         {
@@ -28,6 +29,24 @@ namespace Chinchillada.GridGraph
             public override string ToString()
             {
                 return $"({this.X}, {this.Y}) [E:{this.IsConnectedEast}, S:{this.IsConnectedSouth}]";
+            }
+
+            public IEnumerable<Node> GetConnectedNeighbors()
+            {
+                if (this.IsConnectedEast)
+                    yield return this.graph.GetEastNeighbor(this);
+
+                if (this.IsConnectedSouth)
+                    yield return this.graph.GetSouthNeighbor(this);
+
+                var north = this.graph.GetNorthNeighbor(this);
+                var west  = this.graph.GetWestNeighbor(this);
+
+                if (north is { IsConnectedSouth: true })
+                    yield return north;
+
+                if (west is {IsConnectedEast: true})
+                    yield return west;
             }
 
             public void SetConnect(Direction direction, bool connect = true)
