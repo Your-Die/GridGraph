@@ -1,7 +1,5 @@
 namespace Chinchillada.GridGraph
 {
-    using PCGraphs;
-
     public static class GridGraphRandomExtensions
     {
         public static GridGraph.Node ChooseNode(this IRNG random,  GridGraph grid)

@@ -10,7 +10,7 @@ namespace Chinchillada.GridGraph
     [Serializable]
     public class RecursiveBacktracker : IGridGraphGenerator
     {
-        [OdinSerialize] private ICollectionPicker nodePicker;
+        [SerializeReference] private ICollectionPicker nodePicker;
 
         private bool[,] visited;
 

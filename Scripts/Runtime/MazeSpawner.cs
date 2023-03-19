@@ -2,15 +2,14 @@ namespace Chinchillada.PCGraphs
 {
     using GridGraph;
     using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
     using UnityEngine;
 
-    public class MazeSpawner : SerializedMonoBehaviour, IGrid
+    public class MazeSpawner : MonoBehaviour, IGrid
     {
         [SerializeField, Required, FindComponent]
         private MazeController mazeController;
 
-        [OdinSerialize, Required] private IGenerator<GridGraph> mazeGenerator;
+        [FindComponent] private IGenerator<GridGraph> mazeGenerator;
 
         private GridGraph maze;
 
@@ -29,7 +28,6 @@ namespace Chinchillada.PCGraphs
         {
             this.mazeController.Maze = null;
         }
-
 
         public Vector3 GetCellCenter(int x, int z)
         {

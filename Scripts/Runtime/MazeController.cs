@@ -3,7 +3,6 @@ namespace Chinchillada.PCGraphs
     using System.Collections.Generic;
     using GridGraph;
     using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
     using UnityEngine;
 
     public class MazeController : AutoRefBehaviour, IGrid
@@ -14,11 +13,10 @@ namespace Chinchillada.PCGraphs
         [SerializeField, Required] private GameObject boundaryPrefab;
 
         [SerializeField, Required] private Transform topLeft;
-
-        [OdinSerialize, FindComponent]
-        private IGridGraph maze;
-
+        
         [SerializeField, HideInInspector] private List<GameObject> walls = new List<GameObject>();
+
+        private IGridGraph maze;
 
         private static Quaternion Horizontal => Quaternion.identity;
         private static Quaternion Vertical   => Quaternion.Euler(0, 90, 0);

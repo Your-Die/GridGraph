@@ -1,13 +1,10 @@
 namespace Chinchillada.GridGraph
 {
-    using System;
-    using Sirenix.Serialization;
     using UnityEngine;
 
-    [Serializable]
     public partial class GridGraph
     {
-        [OdinSerialize] private Node[,] nodes;
+        private readonly Node[,] nodes;
 
         public Node this[Vector2Int cell] => this.nodes[cell.x, cell.y];
 

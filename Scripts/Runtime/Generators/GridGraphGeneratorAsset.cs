@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Chinchillada.GridGraph
 {
     using System.Collections.Generic;
@@ -7,7 +9,7 @@ namespace Chinchillada.GridGraph
 
     public class GridGraphGeneratorAsset : SerializedScriptableObject, IGridGraphGenerator
     {
-        [OdinSerialize, Required] private IGridGraphGenerator generator;
+        [SerializeReference, Required] private IGridGraphGenerator generator;
         
         public IEnumerable<GridGraph> GenerateIterative(int width, int height, IRNG random)
         {
