@@ -20,10 +20,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: generator
-      Entry: 7
-      Data: 0|Chinchillada.GridGraph.KruskalMazeGenerator, Chinchillada.PCGraph
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  generator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: KruskalMazeGenerator, ns: Chinchillada.GridGraph, asm: Chinchillada.GridGraph.Runtime}

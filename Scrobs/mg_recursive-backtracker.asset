@@ -20,16 +20,15 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: generator
-      Entry: 7
-      Data: 0|Chinchillada.GridGraph.RecursiveBacktracker, Chinchillada.PCGraph
-    - Name: nodePicker
-      Entry: 7
-      Data: 1|Chinchillada.GridGraph.LastPicker, Chinchillada.PCGraph
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  generator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: RecursiveBacktracker, ns: Chinchillada.GridGraph, asm: Chinchillada.GridGraph.Runtime}
+      data:
+        nodePicker:
+          id: 1
+    00000001:
+      type: {class: LastPicker, ns: Chinchillada.GridGraph, asm: Chinchillada.GridGraph.Runtime}
