@@ -1,7 +1,7 @@
 namespace Chinchillada.GridGraph
 {
     using System.Collections.Generic;
-    using PCGraph;
+    using PCGraphs;
 
     public interface IGridGraphGenerator
     {

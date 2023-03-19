@@ -1,6 +1,7 @@
+
 namespace Chinchillada.GridGraph
 {
-    using PCGraph;
+    using PCGraphs;
 
     public abstract class GridGraphGeneratorNode : AsyncGeneratorNode<GridGraph>
     {

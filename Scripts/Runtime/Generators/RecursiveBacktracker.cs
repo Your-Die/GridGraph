@@ -3,7 +3,7 @@ namespace Chinchillada.GridGraph
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using PCGraph;
+    using PCGraphs;
     using Sirenix.Serialization;
     using UnityEngine;
 

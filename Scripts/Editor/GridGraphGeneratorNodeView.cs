@@ -1,4 +1,4 @@
-namespace Chinchillada.PCGraph.Editor
+namespace Chinchillada.PCGraphs.Editor
 {
     using System.Collections.Generic;
     using GraphProcessor;
@@ -6,15 +6,18 @@ namespace Chinchillada.PCGraph.Editor
     using UnityEngine.UIElements;
 
     [NodeCustomEditor(typeof(GridGraphGeneratorNode))]
-    public class GridGraphGeneratorNodeView : GeneratorNodeView<GridGraphGeneratorNode, GridGraph>
+    public class GridGraphGeneratorNodeView : BaseGeneratorNodeView<GridGraphGeneratorNode, GridGraph>
     {
         private Image previewImage;
 
         private GridGraphTexturizer texturizer = new GridGraphTexturizer();
-        
-        protected override IEnumerable<VisualElement> CreateControls()
+
+        protected override void CreateControls(VisualElement controlContainer)
         {
-            yield return this.previewImage = new Image();
+            base.CreateControls(controlContainer);
+            
+            this.previewImage = new Image();
+            controlContainer.Add(this.previewImage);
         }
 
         protected override void UpdatePreview(GridGraph nodeResult)

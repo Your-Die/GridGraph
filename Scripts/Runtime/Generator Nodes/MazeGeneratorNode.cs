@@ -3,7 +3,7 @@ namespace Chinchillada.GridGraph
     using System;
     using System.Collections.Generic;
     using GraphProcessor;
-    using PCGraph;
+    using PCGraphs;
     using UnityEngine;
 
     [Serializable, NodeMenuItem("Grid Graph/Maze Generator")]

@@ -1,6 +1,6 @@
 namespace Chinchillada.GridGraph
 {
-    using PCGraph;
+    using PCGraphs;
 
     public static class GridGraphRandomExtensions
     {
