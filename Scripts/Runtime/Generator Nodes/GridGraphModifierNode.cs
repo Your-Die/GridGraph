@@ -12,10 +12,13 @@ namespace Chinchillada.PCGraphs
 
         protected GridGraph Grid { get; private set; }
 
-        protected override IEnumerable<GridGraph> GenerateAsync()
+        protected override void OnBeforeGenerate()
         {
             this.Grid = new GridGraph(this.input);
+        }
 
+        protected override IEnumerable<GridGraph> GenerateAsync()
+        {
             return this.Modify(this.Grid);
         }
 

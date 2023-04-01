@@ -16,6 +16,8 @@ namespace Chinchillada.GridGraph
 
         public IRNG RNG { get; set; }
 
+        public override int ExpectedIterations => this.width * this.height;
+
         protected override IEnumerable<GridGraph> GenerateAsync()
         {
             return this.generator.GenerateIterative(this.width, this.height, this.RNG);

@@ -16,16 +16,23 @@ namespace Chinchillada.PCGraphs
         public float percentage;
 
         private List<GridGraph.Connection> walls;
-
+        
         private int removeCount;
 
         public IRNG RNG { get; set; }
 
+        public override int ExpectedIterations => this.removeCount;
+
+        protected override void OnBeforeGenerate()
+        {
+            base.OnBeforeGenerate();
+            
+            this.walls = this.GetValidConnections(this.Grid).ToList();
+            this.removeCount = Mathf.FloorToInt(this.walls.Count * this.percentage);
+        }
+
         protected override IEnumerable<GridGraph> Modify(GridGraph grid)
         {
-            this.walls       = this.GetValidConnections(this.Grid).ToList();
-            this.removeCount = Mathf.FloorToInt(this.walls.Count * this.percentage);
-
             yield return grid;
 
             for (var i = 0; i < this.removeCount; i++)
