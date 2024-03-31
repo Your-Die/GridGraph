@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace Chinchillada.GridGraph
+namespace Chinchillada.GridGraphs
 {
     using System.Collections.Generic;
     using PCGraphs;
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class GridGraphGeneratorAsset : SerializedScriptableObject, IGridGraphGenerator
+    public class GridGraphGeneratorAsset : ScriptableObject, IGridGraphGenerator
     {
         [SerializeReference, Required] private IGridGraphGenerator generator;
         

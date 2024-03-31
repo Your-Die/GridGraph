@@ -1,4 +1,4 @@
-namespace Chinchillada.GridGraph
+namespace Chinchillada.GridGraphs
 {
     public static class GridGraphRandomExtensions
     {

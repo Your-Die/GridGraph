@@ -1,7 +1,7 @@
 namespace Chinchillada.PCGraphs
 {
     using System.Collections.Generic;
-    using GridGraph;
+    using GridGraphs;
     using Sirenix.OdinInspector;
     using UnityEngine;
 

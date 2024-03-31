@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Chinchillada.GridGraph
+namespace Chinchillada.GridGraphs
 {
     using System;
     using System.Collections.Generic;

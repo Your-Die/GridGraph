@@ -3,7 +3,7 @@ namespace Chinchillada.PCGraphs
     using System;
     using System.Collections.Generic;
     using GraphProcessor;
-    using GridGraph;
+    using GridGraphs;
 
     [Serializable]
     public abstract class GridGraphModifierNode : GridGraphGeneratorNode

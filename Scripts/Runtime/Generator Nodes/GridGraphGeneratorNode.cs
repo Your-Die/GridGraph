@@ -1,5 +1,5 @@
 
-namespace Chinchillada.GridGraph
+namespace Chinchillada.GridGraphs
 {
     using PCGraphs;
 

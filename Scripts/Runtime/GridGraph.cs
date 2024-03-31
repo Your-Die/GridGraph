@@ -1,4 +1,4 @@
-namespace Chinchillada.GridGraph
+namespace Chinchillada.GridGraphs
 {
     using UnityEngine;
 

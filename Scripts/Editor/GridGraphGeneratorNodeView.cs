@@ -1,7 +1,7 @@
 namespace Chinchillada.PCGraphs.Editor
 {
     using GraphProcessor;
-    using GridGraph;
+    using GridGraphs;
     using UnityEngine.UIElements;
 
     [NodeCustomEditor(typeof(GridGraphGeneratorNode))]
