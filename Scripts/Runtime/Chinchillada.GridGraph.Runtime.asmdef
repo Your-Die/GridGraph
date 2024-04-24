@@ -5,7 +5,8 @@
         "com.alelievr.NodeGraphProcessor.Runtime",
         "Chinchillada.Foundation.Runtime",
         "Chinchillada.PCGraph.Runtime",
-        "Chinchillada.AutoRef.Runtime"
+        "Chinchillada.AutoRef.Runtime",
+        "Chinchillada.Distributions"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
