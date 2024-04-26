@@ -6,7 +6,8 @@
         "Chinchillada.Foundation.Runtime",
         "Chinchillada.PCGraph.Runtime",
         "Chinchillada.AutoRef.Runtime",
-        "Chinchillada.Distributions"
+        "Chinchillada.Distributions",
+        "Chinchillada.Grid.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -14,13 +14,13 @@ namespace Chinchillada.GridGraphs
     }
 
     [Serializable]
-    public class FirstPicker : ICollectionPicker
+    public class FirstPicker : Strategy, ICollectionPicker
     {
         public T PickItem<T>(IReadOnlyCollection<T> list) => list.First();
     }
 
     [Serializable]
-    public class LastPicker : ICollectionPicker
+    public class LastPicker : Strategy, ICollectionPicker
     {
         public T PickItem<T>(IReadOnlyCollection<T> list) => list.Last();
     }

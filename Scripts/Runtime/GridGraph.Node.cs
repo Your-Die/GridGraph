@@ -40,33 +40,73 @@ namespace Chinchillada.GridGraphs
                     yield return this.graph.GetSouthNeighbor(this);
 
                 var north = this.graph.GetNorthNeighbor(this);
-                var west  = this.graph.GetWestNeighbor(this);
-
                 if (north is { IsConnectedSouth: true })
                     yield return north;
 
-                if (west is {IsConnectedEast: true})
+                var west = this.graph.GetWestNeighbor(this);
+                if (west is { IsConnectedEast: true })
                     yield return west;
+            }
+
+            public IEnumerable<(Node, Direction)> GetConnectedNeighborsWithDirection()
+            {
+                if (this.IsConnectedEast)
+                {
+                    Node eastNeighbor = this.graph.GetEastNeighbor(this);
+                    yield return (eastNeighbor, Direction.East);
+                }
+                else if (this.IsConnectedSouth)
+                {
+                    Node southNeighbor = this.graph.GetSouthNeighbor(this);
+                    yield return (southNeighbor, Direction.South);
+                }
+
+                Node north = this.graph.GetNorthNeighbor(this);
+                if (north is { IsConnectedSouth: true })
+                    yield return (north, Direction.North);
+
+                Node west = this.graph.GetWestNeighbor(this);
+                if (west is { IsConnectedEast: true })
+                    yield return (west, Direction.West);
+            }
+
+            public Direction? GetConnection(Node other)
+            {
+                foreach ((Node neighbor, Direction direction) in this.GetConnectedNeighborsWithDirection())
+                {
+                    if (other == neighbor)
+                        return direction;
+                }
+
+                return null;
             }
 
             public void SetConnect(Direction direction, bool connect = true)
             {
-                switch (direction)
+                try
                 {
-                    case Direction.North:
-                        this.SetConnectNorth(connect);
-                        break;
-                    case Direction.East:
-                        this.SetConnectEast(connect);
-                        break;
-                    case Direction.South:
-                        this.SetConnectSouth(connect);
-                        break;
-                    case Direction.West:
-                        this.SetConnectWest(connect);
-                        break;
+                    switch (direction)
+                    {
+                        case Direction.North:
+                            this.SetConnectNorth(connect);
+                            break;
+                        case Direction.East:
+                            this.SetConnectEast(connect);
+                            break;
+                        case Direction.South:
+                            this.SetConnectSouth(connect);
+                            break;
+                        case Direction.West:
+                            this.SetConnectWest(connect);
+                            break;
 
-                    default: throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                        default: throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                    }
+                }
+                catch (OutOfGridBoundsException exception)
+                {
+                    Debug.LogException(exception);
+                    throw;
                 }
             }
 
