@@ -11,6 +11,8 @@ namespace Chinchillada.PCGraphs
 
         [FindComponent] private IGenerator<GridGraph> mazeGenerator;
 
+        [SerializeReference] private IRNG random;
+
         private GridGraph maze;
 
         public int Width => this.mazeController.Width;
@@ -20,7 +22,7 @@ namespace Chinchillada.PCGraphs
         [Button]
         public void SpawnMaze()
         {
-            this.mazeController.Maze = this.mazeGenerator.Generate();
+            this.mazeController.Maze = this.mazeGenerator.Generate(random);
         }
 
         [Button]
