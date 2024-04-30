@@ -2,13 +2,11 @@
     "name": "Chinchillada.GridGraph.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:ca937d03ee5dd4d699091438dc0f3ae6",
-        "GUID:a432eb0a70c5c4a37ab50d59671586f8",
-        "GUID:3f8000a3b196ab94fb871531d69e73b7",
-        "GUID:28042bb66691ade4ca81e79a14d02378",
-        "GUID:0580305336f1124488ee89e4fc3caa84",
-        "GUID:27619889b8ba8c24980f49ee34dbb44a",
-        "GUID:0acc523941302664db1f4e527237feb3"
+        "com.alelievr.NodeGraphProcessor.Runtime",
+        "com.alelievr.NodeGraphProcessor.Editor",
+        "Chinchillada.PCGraph.Runtime",
+        "Chinchillada.PCGGraph.Editor",
+        "Chinchillada.GridGraph.Runtime"
     ],
     "includePlatforms": [
         "Editor"
