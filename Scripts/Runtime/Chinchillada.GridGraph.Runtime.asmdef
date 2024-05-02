@@ -7,10 +7,10 @@
         "Chinchillada.PCGraph.Runtime",
         "Chinchillada.AutoRef.Runtime",
         "Chinchillada.Distributions",
-        "Chinchillada.Grid.Runtime",
         "Chinchillada.Grid2D.PCG.Graph",
         "UnityEditor.UI",
-        "UnityEngine.UI"
+        "UnityEngine.UI",
+        "Chinchillada.Grid2D.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
