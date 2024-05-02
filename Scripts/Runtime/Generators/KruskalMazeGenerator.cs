@@ -14,8 +14,10 @@ namespace Chinchillada.GridGraphs
         
         public IEnumerable<GridGraph> GenerateIterative(int width, int height, IRNG random)
         {
+            this.setByNodes.Clear();
+            this.nodesBySet.Clear();
+            
             var grid = new GridGraph(width, height);
-
             yield return grid;
             
             var connections = GetAllConnections(grid).ToList();

@@ -1,42 +1,43 @@
+using System;
+
 namespace Chinchillada.GridGraphs
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using PCGraphs;
-    using Sirenix.Serialization;
     using UnityEngine;
 
-    [Serializable]
-    public class RecursiveBacktracker : IGridGraphGenerator
+    public class RecursiveBackTracker : IGridGraphGenerator
     {
-        [SerializeReference] private ICollectionPicker nodePicker;
-
+        private GridGraph grid;
         private bool[,] visited;
 
-        private LinkedList<GridGraph.Node> stack;
-
-        public GridGraph Grid { get; private set; }
+        private readonly IQueue<GridGraph.Node> frontier;
+        
+        public RecursiveBackTracker(IQueue<GridGraph.Node> frontier)
+        {
+            this.frontier = frontier;
+        }
 
         public IEnumerable<GridGraph> GenerateIterative(int width, int height, IRNG random)
         {
-            this.Grid    = new GridGraph(width, height);
+            this.grid    = new GridGraph(width, height);
             this.visited = new bool[width, height];
-            this.stack   = new LinkedList<GridGraph.Node>();
-
-            yield return this.Grid;
             
-            var startNode = random.ChooseNode(this.Grid);
+            this.frontier.Clear();
+
+            yield return this.grid;
+            
+            var startNode = random.ChooseNode(this.grid);
             this.VisitNode(startNode);
 
-            while (this.stack.Any())
+            while (this.frontier.Any())
             {
-                var node = this.ChooseNode();
+                var node = this.frontier.Peek();
 
                 var unvisitedDirections = this.GetUnvisitedDirections(node).ToArray();
                 if (unvisitedDirections.Length <= 1)
                 {
-                    this.stack.Remove(node);
+                    this.frontier.Dequeue();
 
                     if (unvisitedDirections.IsEmpty())
                         continue;
@@ -45,10 +46,10 @@ namespace Chinchillada.GridGraphs
                 var direction = random.Choose(unvisitedDirections);
                 node.SetConnect(direction);
 
-                var neighbor = this.Grid.GetNeighbor(node, direction);
+                var neighbor = this.grid.GetNeighbor(node, direction);
                 this.VisitNode(neighbor);
 
-                yield return this.Grid;
+                yield return this.grid;
             }
         }
 
@@ -60,7 +61,7 @@ namespace Chinchillada.GridGraphs
             bool IsUnvisited(Direction direction)
             {
                 var neighbor = node.Coordinate + direction.ToVector2();
-                return this.Grid.WithinBounds(neighbor) && !this.IsVisitedAt(neighbor);
+                return this.grid.WithinBounds(neighbor) && !this.IsVisitedAt(neighbor);
             }
         }
 
@@ -73,9 +74,7 @@ namespace Chinchillada.GridGraphs
         private void VisitNode(GridGraph.Node node)
         {
             this.visited[node.X, node.Y] = true;
-            this.stack.AddLast(node);
+            this.frontier.Enqueue(node);
         }
-
-        private GridGraph.Node ChooseNode() => this.nodePicker.PickItem(this.stack);
     }
 }
